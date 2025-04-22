@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "id": "noitemtooltips",
+  "version": "${version}",
+  "name": "NoItemTooltips",
+  "description": "No More Tooltips: Hovering over your Diamond Pickaxe? Might be a stick, might be a fish. Figure it out yourself, coward.",
+  "authors": ["D7lan"],
+  "contact": {},
+  "license": "MIT",
+  "icon": "assets/noitemtooltips/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "fabric-datagen": [
+      "org.D7lan.noitemtooltips.client.NoitemtooltipsDataGenerator"
+    ],
+    "client": [
+      "org.D7lan.noitemtooltips.client.NoItemTooltipsMod"
+    ],
+    "main": [
+      "org.D7lan.noitemtooltips.Noitemtooltips"
+    ]
+  },
+  "mixins": [
+    "noitemtooltips.mixins.json",
+    {
+      "config": "noitemtooltips.client.mixins.json",
+      "environment": "client"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "fabric": "*",
+    "minecraft": "${minecraft_version}"
+  }
+}
