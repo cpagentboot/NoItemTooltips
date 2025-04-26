@@ -39,7 +39,7 @@ public class NoItemTooltipsMod implements ClientModInitializer {
     private static void writeDefaultConfig() throws IOException {
         JsonObject o = new JsonObject();
         o.addProperty("enabled", true);
-        o.addProperty("hoverDelayMs", 500);
+        o.addProperty("hoverDelayMs", -1);
         Files.writeString(CONFIG_PATH,
                 new GsonBuilder().setPrettyPrinting().create().toJson(o),
                 StandardOpenOption.CREATE, StandardOpenOption.WRITE);

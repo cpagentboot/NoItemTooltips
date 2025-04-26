@@ -22,7 +22,7 @@ public class GuiGraphicsMixin {
     private static long hoverStart = 0L;
 
     @Inject(
-            method = "renderTooltip(Lnet/minecraft/client/gui/Font;Ljava/util/List;Ljava/util/Optional;IILnet/minecraft/resources/ResourceLocation;)V",
+            method = "renderTooltip(Lnet/minecraft/client/gui/Font;Ljava/util/List;Ljava/util/Optional;II)V\n",
             at = @At("HEAD"),
             cancellable = true
     )
@@ -30,7 +30,6 @@ public class GuiGraphicsMixin {
                                  List<Component> lines,
                                  Optional<TooltipComponent> extra,
                                  int x, int y,
-                                 ResourceLocation tex,
                                  CallbackInfo ci)
     {
         // if mod is turned off, let vanilla run unmodified
@@ -46,10 +45,17 @@ public class GuiGraphicsMixin {
             return;
         }
 
+        // If hoverdelay is set to -1, then the user wants absolutely no item tooltips whatsoever, which was the original purpose of the mod.
+        if (NoItemTooltipsMod.hoverDelayMs == -1){
+            ci.cancel();
+        }
+
         // if hovered under threshold, skip rendering
         if (System.currentTimeMillis() - hoverStart < NoItemTooltipsMod.hoverDelayMs) {
             ci.cancel();
         }
+
+
         // otherwise, let vanilla renderTooltip proceed
     }
 }
